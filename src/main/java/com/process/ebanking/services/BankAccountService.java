@@ -1,5 +1,8 @@
 package com.process.ebanking.services;
 
+import com.process.ebanking.dtos.AccountHistoryDTO;
+import com.process.ebanking.dtos.AccountOperationDTO;
+import com.process.ebanking.dtos.BankAccountDTO;
 import com.process.ebanking.dtos.CustomerDTO;
 import com.process.ebanking.entities.BankAccount;
 import com.process.ebanking.entities.Customer;
@@ -26,7 +29,7 @@ public interface BankAccountService {
     List<CustomerDTO> listCustomers();
 
     // Consulter un compte
-    BankAccount getBankAccount(String accountId) throws BankAccountNotFoundException;
+    BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
 
     // Créer les opérations de débit, de crédit, et de virement
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
@@ -34,7 +37,7 @@ public interface BankAccountService {
     void transfer(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
     // Consulter la liste de compte
-    List<BankAccount> bankAccountList();
+    List<BankAccountDTO> bankAccountList();
 
     // Consulter un client
     CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
@@ -44,4 +47,8 @@ public interface BankAccountService {
 
     // Suppression d'un client
     void deleteCustomer(Long customerId) throws CustomerNotFoundException;
+
+    List<AccountOperationDTO> accountHistory(String customerId);
+
+    //List<AccountHistoryDTO> getAccountHistory(String id, int page, int size);
 }
